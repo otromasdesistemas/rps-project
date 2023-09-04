@@ -15,15 +15,37 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection == "paper" && computerSelection == "scissors") ||
     (playerSelection == "scissors" && computerSelection == "rock")
   ) return "Computer Win";
-
   else if (
     (playerSelection == "paper" && computerSelection == "rock") ||
     (playerSelection == "scissors" && computerSelection == "paper") ||
     (playerSelection == "rock" && computerSelection == "scissors")
-  ) return "Player Win";
-
+  ) return "Player Win"
   else return "It's a Tie"
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
+let playerPoints = 0;
+let computerPoints = 0;
+
+let game = () => {
+  let round = 0;
+  while (round < 5){
+    const playerSelection = prompt("Choose: Rock, Paper or Scissors").toLocaleLowerCase();
+    const computerSelection = getComputerChoice();
+
+    const roundResult = playRound(playerSelection, computerSelection);
+
+    if (roundResult == "Computer Win") {
+      computerPoints += 1;
+    }
+    else if (roundResult == "Player Win") {
+      playerPoints += 1;
+    }
+    round += 1;
+  }
+
+  if (playerPoints > computerPoints) return "Player Win";
+  else if (playerPoints < computerPoints) return "Computer Win";
+  else return console.log("It's a tie!");
+}
+
+console.log(game());
